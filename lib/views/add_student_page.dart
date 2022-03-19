@@ -17,6 +17,16 @@ class _AddStudentPageState extends State<AddStudentPage> {
   String name = '';
   var formKey = GlobalKey<FormState>();
 
+  addUser(){
+    print('User added');
+  }
+
+  void clearText(){
+    nameController.clear();
+    emailController.clear();
+    passwordController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +42,11 @@ class _AddStudentPageState extends State<AddStudentPage> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: TextFormField(
+                validator: (value){
+                  if(value!.isEmpty || value == null){
+                    return 'Field must be not empty';
+                  }
+                },
                 controller: nameController,
                 decoration: InputDecoration(
                     hintText: 'Enter Name',
@@ -44,6 +59,14 @@ class _AddStudentPageState extends State<AddStudentPage> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: TextFormField(
+                validator: (value){
+                  if(value!.isEmpty || value == null){
+                    return 'Field must be not empty';
+                  }else if(!value.contains('@')){
+                    return 'Enter valid email';
+                  }
+                  return null;
+                },
                 controller: emailController,
                 decoration: InputDecoration(
                     hintText: 'Enter email',
@@ -56,6 +79,11 @@ class _AddStudentPageState extends State<AddStudentPage> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: TextFormField(
+                validator: (value){
+                  if(value!.isEmpty || value == null){
+                    return 'Field must be not empty';
+                  }
+                },
                 controller: passwordController,
                 decoration: InputDecoration(
                     hintText: 'Enter password',
@@ -72,12 +100,24 @@ class _AddStudentPageState extends State<AddStudentPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if(formKey.currentState!.validate()){
+                        name = nameController.text;
+                        email = emailController.text;
+                        password = passwordController.text;
+
+                        addUser();
+                        clearText();
+                      }
+                    },
                     child: Text('Register'),
                     style: TextButton.styleFrom(backgroundColor: Colors.blue),
                   ),
+                  SizedBox(width: 60,),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      clearText();
+                    },
                     child: Text('Reset'),
                     style: TextButton.styleFrom(backgroundColor: Colors.blue),
                   )
