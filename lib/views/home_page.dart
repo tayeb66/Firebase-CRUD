@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Flutter firestore crid'),
+            Text('HomePage'),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(

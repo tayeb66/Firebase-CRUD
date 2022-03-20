@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_crud/views/update_student_page.dart';
+import 'package:firebase_crud/views/edit_student_page.dart';
 import 'package:flutter/material.dart';
 
 class ListStudentPage extends StatefulWidget {
@@ -10,26 +10,34 @@ class ListStudentPage extends StatefulWidget {
 }
 
 class _ListStudentPageState extends State<ListStudentPage> {
-
   /// data fetch from firebase using Stream
   /// QuerySnapshot contains the results of a query.
   /// It can contain zero or more DocumentSnapshot objects
   final Stream<QuerySnapshot> studentsStream =
       FirebaseFirestore.instance.collection('students').snapshots();
 
-  void deleteUser(id) {
-    print('Delete user $id');
+  CollectionReference student =
+      FirebaseFirestore.instance.collection('students');
+
+  /// Using this method to delete id
+  /// id contain user information
+  Future<void> deleteUser(id) async {
+   return student
+        .doc(id)
+        .delete()
+        .then((value) => print('User deleted'))
+        .catchError((error) => print('Failed to delete user: $error'));
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: studentsStream,
-      builder: (context, AsyncSnapshot<QuerySnapshot>snapshot){
-        if(snapshot.hasError){
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
           print('Something error');
         }
-        if(snapshot.connectionState == ConnectionState.waiting){
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: CircularProgressIndicator(),
           );
@@ -39,9 +47,10 @@ class _ListStudentPageState extends State<ListStudentPage> {
         ///A DocumentSnapshot contains data read
         /// from a document in your FirebaseFirestore database
         final List storeDocuments = [];
-        snapshot.data!.docs.map((DocumentSnapshot document){
+        snapshot.data!.docs.map((DocumentSnapshot document) {
           Map map = document.data() as Map<String, dynamic>;
           storeDocuments.add(map);
+          map['id'] = document.id;
         }).toList();
 
         return Scaffold(
@@ -65,7 +74,9 @@ class _ListStudentPageState extends State<ListStudentPage> {
                   scrollDirection: Axis.vertical,
                   child: Table(
                     border: TableBorder.all(
-                        color: Colors.purple, width: 2.0, style: BorderStyle.solid),
+                        color: Colors.purple,
+                        width: 2.0,
+                        style: BorderStyle.solid),
                     columnWidths: <int, TableColumnWidth>{
                       1: FixedColumnWidth(140),
                     },
@@ -115,7 +126,7 @@ class _ListStudentPageState extends State<ListStudentPage> {
 
                       ///appearing to list data from document
                       ///using for loop
-                      for(var i=0; i<storeDocuments.length; i++)...[
+                      for (var i = 0; i < storeDocuments.length; i++) ...[
                         TableRow(children: [
                           TableCell(
                             child: Container(
@@ -151,12 +162,12 @@ class _ListStudentPageState extends State<ListStudentPage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    UpdateStudentPage()));
+                                                    EditStudentPage()));
                                       },
                                       icon: Icon(Icons.add)),
                                   IconButton(
                                       onPressed: () {
-                                        deleteUser(storeDocuments);
+                                      deleteUser(storeDocuments[i]['id']);
                                       },
                                       icon: Icon(Icons.delete)),
                                 ],
@@ -165,7 +176,6 @@ class _ListStudentPageState extends State<ListStudentPage> {
                           ),
                         ]),
                       ],
-
                     ],
                   ),
                 ),
@@ -175,6 +185,5 @@ class _ListStudentPageState extends State<ListStudentPage> {
         );
       },
     );
-
   }
 }

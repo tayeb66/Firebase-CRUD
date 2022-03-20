@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_crud/views/home_page.dart';
+import 'package:firebase_crud/views/listStudent_page.dart';
 import 'package:flutter/material.dart';
 
 class AddStudentPage extends StatefulWidget {
@@ -17,11 +20,17 @@ class _AddStudentPageState extends State<AddStudentPage> {
   String name = '';
   var formKey = GlobalKey<FormState>();
 
-  addUser(){
-    print('User added');
-  }
+  CollectionReference students =
+      FirebaseFirestore.instance.collection('students');
 
-  void clearText(){
+  Future<void> addUser() async {
+    return students
+        .add({'name': name, 'email': email, 'password': password})
+        .then((value) => print('User added'))
+        .catchError((error) => print('Failed to catch error $error'));
+}
+
+  void clearText() {
     nameController.clear();
     emailController.clear();
     passwordController.clear();
@@ -48,8 +57,8 @@ class _AddStudentPageState extends State<AddStudentPage> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: TextFormField(
-                validator: (value){
-                  if(value!.isEmpty || value == null){
+                validator: (value) {
+                  if (value!.isEmpty || value == null) {
                     return 'Field must be not empty';
                   }
                 },
@@ -65,10 +74,10 @@ class _AddStudentPageState extends State<AddStudentPage> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: TextFormField(
-                validator: (value){
-                  if(value!.isEmpty || value == null){
+                validator: (value) {
+                  if (value!.isEmpty || value == null) {
                     return 'Field must be not empty';
-                  }else if(!value.contains('@')){
+                  } else if (!value.contains('@')) {
                     return 'Enter valid email';
                   }
                   return null;
@@ -85,8 +94,8 @@ class _AddStudentPageState extends State<AddStudentPage> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: TextFormField(
-                validator: (value){
-                  if(value!.isEmpty || value == null){
+                validator: (value) {
+                  if (value!.isEmpty || value == null) {
                     return 'Field must be not empty';
                   }
                 },
@@ -107,13 +116,17 @@ class _AddStudentPageState extends State<AddStudentPage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      if(formKey.currentState!.validate()){
+                      if (formKey.currentState!.validate()) {
                         setState(() {
                           name = nameController.text;
                           email = emailController.text;
                           password = passwordController.text;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()));
 
-                          addUser();
+                         addUser();
                           clearText();
                         });
                       }
@@ -121,7 +134,9 @@ class _AddStudentPageState extends State<AddStudentPage> {
                     child: Text('Register'),
                     style: TextButton.styleFrom(backgroundColor: Colors.blue),
                   ),
-                  SizedBox(width: 60,),
+                  SizedBox(
+                    width: 60,
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       clearText();

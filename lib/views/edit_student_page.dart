@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class UpdateStudentPage extends StatefulWidget {
-  const UpdateStudentPage({Key? key}) : super(key: key);
+class EditStudentPage extends StatefulWidget {
+  const EditStudentPage({Key? key}) : super(key: key);
 
   @override
-  State<UpdateStudentPage> createState() => _UpdateStudentPageState();
+  State<EditStudentPage> createState() => _EditStudentPageState();
 }
 
-class _UpdateStudentPageState extends State<UpdateStudentPage> {
+class _EditStudentPageState extends State<EditStudentPage> {
   var formKey = GlobalKey<FormState>();
 
   void updateUser() {
@@ -18,7 +18,7 @@ class _UpdateStudentPageState extends State<UpdateStudentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Update student page'),
+        title: Text('Edit Student data'),
       ),
       body: Form(
         key: formKey,
