@@ -162,7 +162,7 @@ class _ListStudentPageState extends State<ListStudentPage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    EditStudentPage()));
+                                                    EditStudentPage(id:storeDocuments[i]['id'],)));
                                       },
                                       icon: Icon(Icons.add)),
                                   IconButton(
