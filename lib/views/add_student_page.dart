@@ -28,17 +28,23 @@ class _AddStudentPageState extends State<AddStudentPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Add student data'),
+      ),
       body: Form(
         key: formKey,
         child: (Column(
           children: [
-            Text(
-              'Add student data',
-              textScaleFactor: 1.5,
-            ),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: TextFormField(
@@ -102,12 +108,14 @@ class _AddStudentPageState extends State<AddStudentPage> {
                   ElevatedButton(
                     onPressed: () {
                       if(formKey.currentState!.validate()){
-                        name = nameController.text;
-                        email = emailController.text;
-                        password = passwordController.text;
+                        setState(() {
+                          name = nameController.text;
+                          email = emailController.text;
+                          password = passwordController.text;
 
-                        addUser();
-                        clearText();
+                          addUser();
+                          clearText();
+                        });
                       }
                     },
                     child: Text('Register'),
