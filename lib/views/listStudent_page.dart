@@ -44,7 +44,6 @@ class _ListStudentPageState extends State<ListStudentPage> {
           storeDocuments.add(map);
         }).toList();
 
-
         return Scaffold(
           body: Column(
             children: [
@@ -113,54 +112,60 @@ class _ListStudentPageState extends State<ListStudentPage> {
                           ),
                         ),
                       ]),
-                      TableRow(children: [
-                        TableCell(
-                          child: Container(
-                            child: Center(
-                              child: Text(
-                                'Tayeb ahmed',
-                                style: TextStyle(
-                                  color: Colors.black,
+
+                      ///appearing to list data from document
+                      ///using for loop
+                      for(var i=0; i<storeDocuments.length; i++)...[
+                        TableRow(children: [
+                          TableCell(
+                            child: Container(
+                              child: Center(
+                                child: Text(
+                                  storeDocuments[i]['name'],
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        TableCell(
-                          child: Container(
-                            child: Center(
-                              child: Text(
-                                'tayeb@gmail.com',
-                                style: TextStyle(
-                                  color: Colors.black,
+                          TableCell(
+                            child: Container(
+                              child: Center(
+                                child: Text(
+                                  storeDocuments[i]['email'],
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        TableCell(
-                          child: Container(
-                            child: Row(
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  UpdateStudentPage()));
-                                    },
-                                    icon: Icon(Icons.add)),
-                                IconButton(
-                                    onPressed: () {
-                                      deleteUser(storeDocuments);
-                                    },
-                                    icon: Icon(Icons.delete)),
-                              ],
+                          TableCell(
+                            child: Container(
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UpdateStudentPage()));
+                                      },
+                                      icon: Icon(Icons.add)),
+                                  IconButton(
+                                      onPressed: () {
+                                        deleteUser(storeDocuments);
+                                      },
+                                      icon: Icon(Icons.delete)),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ]),
+                        ]),
+                      ],
+
                     ],
                   ),
                 ),
