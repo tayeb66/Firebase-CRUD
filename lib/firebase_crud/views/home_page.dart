@@ -1,6 +1,6 @@
-import 'package:firebase_crud/views/add_student_page.dart';
-import 'package:firebase_crud/views/listStudent_page.dart';
+import 'package:firebase_crud/firebase_crud/views/listStudent_page.dart';
 import 'package:flutter/material.dart';
+import 'add_student_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

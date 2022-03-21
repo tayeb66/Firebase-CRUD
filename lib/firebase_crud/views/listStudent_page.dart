@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_crud/views/edit_student_page.dart';
+import 'package:firebase_crud/firebase_crud/views/edit_student_page.dart';
 import 'package:flutter/material.dart';
 
 class ListStudentPage extends StatefulWidget {
@@ -59,7 +59,7 @@ class _ListStudentPageState extends State<ListStudentPage> {
               Container(
                 margin: EdgeInsets.only(top: 12.0),
                 child: Text(
-                  'List student page',
+                  'List of students page',
                   textScaleFactor: 1.3,
                 ),
               ),
@@ -77,13 +77,14 @@ class _ListStudentPageState extends State<ListStudentPage> {
                         color: Colors.purple,
                         width: 2.0,
                         style: BorderStyle.solid),
-                    columnWidths: <int, TableColumnWidth>{
-                      1: FixedColumnWidth(140),
-                    },
+                    // columnWidths: <int, TableColumnWidth>{
+                    //   1: FixedColumnWidth(140),
+                    // },
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: [
-                      TableRow(children: [
-                        TableCell(
+                      TableRow(
+                          children: [
+                        Expanded(
                           child: Container(
                             color: Colors.blue,
                             child: Center(
@@ -114,7 +115,7 @@ class _ListStudentPageState extends State<ListStudentPage> {
                             color: Colors.blue,
                             child: Center(
                               child: Text(
-                                'Action',
+                                'Password',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),

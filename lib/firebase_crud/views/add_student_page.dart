@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_crud/views/home_page.dart';
-import 'package:firebase_crud/views/listStudent_page.dart';
 import 'package:flutter/material.dart';
+import 'home_page.dart';
 
 class AddStudentPage extends StatefulWidget {
   const AddStudentPage({Key? key}) : super(key: key);
