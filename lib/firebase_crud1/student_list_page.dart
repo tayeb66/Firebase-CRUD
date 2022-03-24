@@ -11,12 +11,21 @@ class ListStudentPage1 extends StatefulWidget {
 }
 
 class _ListStudentPage1State extends State<ListStudentPage1> {
-
+  /// Data return to Stream reference
+  /// from firestore collection in firebase
   Stream<QuerySnapshot> studentsStream =
       FirebaseFirestore.instance.collection('students').snapshots();
 
-  deleteUser(id) {
-    print('Deleted id: $id');
+  /// CollectionReference query from collection in firestore
+  CollectionReference reference =
+      FirebaseFirestore.instance.collection('students');
+  /// delete data through document id docs(id)
+  Future<void> deleteUser(id) {
+    return reference
+        .doc(id)
+        .delete()
+        .then((value) => print('Deleted User'))
+        .catchError((error) => print('Failed to delete user $error'));
   }
 
   @override
@@ -36,6 +45,9 @@ class _ListStudentPage1State extends State<ListStudentPage1> {
         List storeDocs = [];
         snapshot.data!.docs.map((DocumentSnapshot document) {
           Map map = document.data() as Map<String, dynamic>;
+
+          ///catch document using id
+          map['id'] = document.id;
           storeDocs.add(map);
         }).toList();
 
@@ -110,7 +122,7 @@ class _ListStudentPage1State extends State<ListStudentPage1> {
                               icon: Icon(Icons.add)),
                           IconButton(
                               onPressed: () {
-                                deleteUser(storeDocs);
+                                deleteUser(storeDocs[i]['id']);
                               },
                               icon: Icon(Icons.delete)),
                         ],

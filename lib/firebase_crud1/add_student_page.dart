@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crud/firebase_crud1/edit_student_page.dart';
 import 'package:flutter/material.dart';
 
@@ -26,14 +27,21 @@ class _AddStudentPage1State extends State<AddStudentPage1> {
     passwordController.dispose();
   }
 
-  void clearText(){
+  void clearText() {
     nameController.clear();
     emailController.clear();
     passwordController.clear();
   }
 
-  addUser(){
-    print('User added');
+  /// CollectionReference query from collection in firestore
+  CollectionReference reference =
+      FirebaseFirestore.instance.collection('students');
+ /// Added user through this method
+  Future<void> addUser() {
+    return reference
+        .add({'name': name, 'email': email, 'password': password})
+        .then((value) => print('User Added'))
+        .catchError((error) => print('Added failed'));
   }
 
   @override
@@ -108,20 +116,23 @@ class _AddStudentPage1State extends State<AddStudentPage1> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                       if(formKey.currentState!.validate()){
-                         setState(() {
-                           name = nameController.text;
-                           email = emailController.text;
-                           password = passwordController.text;
-                           addUser();
-                           clearText();
-                         });
-                       }
+                        if (formKey.currentState!.validate()) {
+                          setState(() {
+                            name = nameController.text;
+                            email = emailController.text;
+                            password = passwordController.text;
+                            Navigator.pop(context);
+                            addUser();
+                            clearText();
+                          });
+                        }
                       },
                       child: Text('Register')),
-                  ElevatedButton(onPressed: () {
-                    clearText();
-                  }, child: Text('Reset')),
+                  ElevatedButton(
+                      onPressed: () {
+                        clearText();
+                      },
+                      child: Text('Reset')),
                 ],
               ),
             ),
