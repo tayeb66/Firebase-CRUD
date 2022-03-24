@@ -117,7 +117,7 @@ class _ListStudentPage1State extends State<ListStudentPage1> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            EditStudentPage1()));
+                                            EditStudentPage1(id: storeDocs[i]['id'],)));
                               },
                               icon: Icon(Icons.add)),
                           IconButton(
