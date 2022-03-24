@@ -1,30 +1,18 @@
-import 'package:firebase_crud/firebase_crud1/edit_student_page.dart';
 import 'package:flutter/material.dart';
 
-class AddStudentPage1 extends StatefulWidget {
-  const AddStudentPage1({Key? key}) : super(key: key);
+class EditStudentPage1 extends StatefulWidget {
+  const EditStudentPage1({Key? key}) : super(key: key);
 
   @override
-  State<AddStudentPage1> createState() => _AddStudentPage1State();
+  State<EditStudentPage1> createState() => _EditStudentPage1State();
 }
 
-class _AddStudentPage1State extends State<AddStudentPage1> {
+class _EditStudentPage1State extends State<EditStudentPage1> {
+
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
-
-  var name = '';
-  var email = '';
-  var password = '';
-
-  @override
-  void dispose() {
-    super.dispose();
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-  }
 
   void clearText(){
     nameController.clear();
@@ -32,7 +20,7 @@ class _AddStudentPage1State extends State<AddStudentPage1> {
     passwordController.clear();
   }
 
-  addUser(){
+  updateUser(){
     print('User added');
   }
 
@@ -40,7 +28,7 @@ class _AddStudentPage1State extends State<AddStudentPage1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('AddStudentPage'),
+        title: Text('EditStudentPage1'),
       ),
       body: Form(
         key: formKey,
@@ -49,7 +37,7 @@ class _AddStudentPage1State extends State<AddStudentPage1> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12.0),
               child: TextFormField(
-                controller: nameController,
+                initialValue: 'tayeb',
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Field must be not empty';
@@ -66,7 +54,7 @@ class _AddStudentPage1State extends State<AddStudentPage1> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12.0),
               child: TextFormField(
-                controller: emailController,
+                initialValue: 'tayeb@gmail.com',
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Field must be not empty';
@@ -85,7 +73,7 @@ class _AddStudentPage1State extends State<AddStudentPage1> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12.0),
               child: TextFormField(
-                controller: passwordController,
+               initialValue: '123456789',
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Field must be not empty';
@@ -108,17 +96,12 @@ class _AddStudentPage1State extends State<AddStudentPage1> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                       if(formKey.currentState!.validate()){
-                         setState(() {
-                           name = nameController.text;
-                           email = emailController.text;
-                           password = passwordController.text;
-                           addUser();
-                           clearText();
-                         });
-                       }
+                        if(formKey.currentState!.validate()){
+                          Navigator.pop(context);
+                          clearText();
+                        }
                       },
-                      child: Text('Register')),
+                      child: Text('Update')),
                   ElevatedButton(onPressed: () {
                     clearText();
                   }, child: Text('Reset')),

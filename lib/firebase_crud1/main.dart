@@ -1,3 +1,4 @@
+import 'package:firebase_crud/firebase_crud1/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main(){
@@ -10,6 +11,8 @@ class MyApp1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage1(),
 
     );
   }
