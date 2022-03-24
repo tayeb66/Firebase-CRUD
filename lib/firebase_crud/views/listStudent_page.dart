@@ -10,7 +10,8 @@ class ListStudentPage extends StatefulWidget {
 }
 
 class _ListStudentPageState extends State<ListStudentPage> {
-  /// data fetch from firebase using Stream
+  /// data fetch from firebase using stream
+  /// edit and delete data to firebase using Stream
   /// QuerySnapshot contains the results of a query.
   /// It can contain zero or more DocumentSnapshot objects
   final Stream<QuerySnapshot> studentsStream =
@@ -43,7 +44,7 @@ class _ListStudentPageState extends State<ListStudentPage> {
           );
         }
 
-        ///Bring data from document and store on storeDocuments
+        /// document data store on storeDocuments
         ///A DocumentSnapshot contains data read
         /// from a document in your FirebaseFirestore database
         final List storeDocuments = [];
@@ -168,7 +169,7 @@ class _ListStudentPageState extends State<ListStudentPage> {
                                       icon: Icon(Icons.add)),
                                   IconButton(
                                       onPressed: () {
-                                      deleteUser(storeDocuments[i]['id']);
+
                                       },
                                       icon: Icon(Icons.delete)),
                                 ],
