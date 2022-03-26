@@ -52,6 +52,7 @@ class _ListStudentPage1State extends State<ListStudentPage1> {
         }).toList();
 
         return Scaffold(
+          backgroundColor: Colors.blue,
           body: Container(
             margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             child: SingleChildScrollView(
