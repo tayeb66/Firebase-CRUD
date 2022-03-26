@@ -12,7 +12,7 @@ class ListStudentPage1 extends StatefulWidget {
 
 class _ListStudentPage1State extends State<ListStudentPage1> {
   /// Data return to Stream reference
-  /// from firestore collection in firebase
+  /// from Firebase collection in firebase
   Stream<QuerySnapshot> studentsStream =
       FirebaseFirestore.instance.collection('students').snapshots();
 

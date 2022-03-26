@@ -33,7 +33,7 @@ class _AddStudentPage1State extends State<AddStudentPage1> {
     passwordController.clear();
   }
 
-  /// CollectionReference query from collection in firestore
+  /// CollectionReference query collection from Firestore
   CollectionReference reference =
       FirebaseFirestore.instance.collection('students');
  /// Added user through this method
